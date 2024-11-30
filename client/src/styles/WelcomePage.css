@@ -1,0 +1,75 @@
+body{
+    margin: 0;
+    overflow: hidden;
+    /* width: 100%;
+    height: 100vh;
+    background-image: url('/Users/munnavar/Desktop/SE-Project-MovieMinds/client/public/images/large.mp4');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;  */
+}
+.background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1; /* Ensure video stays behind content */
+}
+.welcome-page-container{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+.welcome-page{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin-top: 325px;
+    height: 50px;
+}
+
+
+.welcome-page h1{
+    color: white;
+    font-family: math;
+    font-weight: bolder;
+    font-size: 40px;
+}
+
+.welcome-page button{
+    padding: 15px;
+    background-color: #93131B;
+    color: white;
+    font-weight: bolder;
+    font-size: 18px;
+    border-radius: 22px;
+    border-color: black;
+}
+
+.welcome-page button:hover{
+    background-color: white;
+    color: #93131B;
+}
+
+.welcome-login{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+.welcome-login h4{
+    color: white;
+}
+.welcome-login a{
+    cursor: pointer;
+    font-weight: bold;
+    color: #93131B;
+    font-size: 18px;
+}
+
+

@@ -1,0 +1,144 @@
+.signup-page {
+  height: 100vh;
+  background-image: url('/Users/munnavar/Desktop/SE-Project-MovieMinds/client/public/images/Background.jpeg');
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-container{
+  background-color: #1B1717;
+    padding: 40px;
+    border-radius: 10px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.signup-box p {
+  font-size: 18px;
+  color: #827C7C;
+  margin-bottom: 20px;
+  text-align: left;
+  font-family: math;
+}
+
+.signup-box input {
+  width: 89%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #222;
+  color: black;
+  font-weight: 600;
+  background-color: white;
+  font-family: math;
+}
+.signup-box input:focus {
+  border-color:#93131B;
+  outline: none;
+  font-family: math;
+}
+
+.signup-btn {
+  width: 100px;
+  padding: 12px;
+  background-color: #93131B;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-family: math;
+  margin-top: 15px;
+}
+
+.signup-btn:hover {
+  background-color: #b71c1c;
+  font-family: math;
+}
+
+.auth-nav a {
+  font-size: 27px;
+  color: #827C7C;
+  font-weight: bold;
+  text-decoration: none;
+  margin: 0 5px;
+  font-family: math;
+}
+
+
+.auth-nav a.active {
+  color: white;
+  text-align: left;
+  font-size: 2em;
+  font-family: math;
+}
+
+.auth-nav a:hover {
+  text-decoration: #93131B;
+  font-family: math;
+}
+
+.signup-box h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.signup-box p {
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.signup-box a:active{
+  text-align: left;
+}
+
+
+.signup-box Link{
+  text-align: left;
+ }
+
+ .signup-btn-div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Style the select dropdown */
+select{
+  width: 95%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #222;
+  color: black;
+  font-weight: 600;
+  background-color: white;
+  font-family: math;
+}
+
+/* Style the dropdown options */
+option {
+  font-family: math;
+  font-size: 16px;
+  color: #333;
+  background-color: #fff;
+}
+
+.signup-forgot{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
