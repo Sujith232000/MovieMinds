@@ -124,7 +124,7 @@
 .suggestions {
   display: flex;
   justify-content: flex-start; 
-  gap: 200px; 
+  gap: 500px; 
   margin-top: 20px;
   padding-left: 0px; 
 }
@@ -140,6 +140,7 @@
   font-size: 24px;
   color: white;
   margin-bottom: 20px;
+  margin-left: 15px;
 }
 
 .suggestion {
@@ -148,7 +149,7 @@
 }
 
 .suggestion img {
-  width: 300px; 
+  width: 150px; 
   height: auto;
   border-radius: 5px; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -203,4 +204,31 @@
 }
 
 
+.suggestions-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Five movies per row */
+  gap: 60px;
+  overflow-y: auto;
+  max-height: 400px; /* Set the maximum height for the scrollable section */
+  padding: 10px;
+}
 
+.suggestions-container::-webkit-scrollbar {
+  width: 8px; /* Scrollbar width */
+}
+
+.suggestions-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+}
+
+.suggestion {
+  text-align: center;
+}
+
+.suggestion img {
+  width: 150px;
+  height: 225px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
