@@ -65,6 +65,7 @@ const HomePage = () => {
             className="search-bar"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleSearch}
           />
           <button className="search-button" onClick={handleSearch}>
             <FaSearch />
@@ -115,7 +116,7 @@ const HomePage = () => {
                 <img
                   src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
                   alt={movie.title}
-                  style={{ borderRadius: '5px' }}
+                  style={{ borderRadius: '10px' }}
                 />
                 <p>{movie.title}</p>
               </div>
