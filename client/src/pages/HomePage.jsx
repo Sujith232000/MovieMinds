@@ -1,39 +1,40 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import '../styles/HomePage.css';
 import axios from 'axios';
 import { FaSearch } from 'react-icons/fa';
 
-
 const HomePage = () => {
   const navigate = useNavigate();
+  const [movies, setMovies] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const API_KEY = '0a9df2a7c19a7159901f6523aef5cc22';
+  const BASE_URL = 'https://api.themoviedb.org/3';
 
   useEffect(() => {
-    const fetchHomepageData = async () => {
+    const fetchPopularMovies = async () => {
       try {
-        const token = localStorage.getItem('authToken');
-        if (!token) {
-          console.error('No token found. Redirecting to login.');
-          navigate('/login');
-          return;
-        }
-
-        const response = await axios.get('http://localhost:4000/home-page', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        console.log('Homepage data:', response.data);
+        const response = await axios.get(`${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1`);
+        setMovies(response.data.results);
       } catch (error) {
-        console.error('Error fetching homepage data:', error);
-        navigate('/login');
+        console.error('Error fetching popular movies:', error);
       }
     };
 
-    fetchHomepageData();
-  }, [navigate]);
- // Add navigate to the dependency array
+    fetchPopularMovies();
+  }, []);
+
+  const handleSearch = async () => {
+    if (searchQuery.trim() === '') {
+      return; // Ignore empty searches
+    }
+    try {
+      const response = await axios.get(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${searchQuery}&language=en-US&page=1`);
+      setMovies(response.data.results);
+    } catch (error) {
+      console.error('Error searching for movies:', error);
+    }
+  };
 
   const handleLogout = () => {
     fetch('http://localhost:4000/logout', {
@@ -42,7 +43,6 @@ const HomePage = () => {
     })
       .then((response) => {
         if (response.ok) {
-          // Redirect to login page
           localStorage.removeItem('authToken'); // Clear the token from localStorage
           navigate('/login');
         } else {
@@ -59,19 +59,23 @@ const HomePage = () => {
       <aside className="sidebar">
         <h1 className="logo" style={{ fontWeight: '1000', fontSize: '32px' }}>MOVIE MiND's</h1>
         <div className="search-container">
-         <input
-         type="text"
-         placeholder="Search..."
-        className="search-bar"
-        />
-    <button className="search-button"><FaSearch /></button>
-  </div>
+          <input
+            type="text"
+            placeholder="Search..."
+            className="search-bar"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button className="search-button" onClick={handleSearch}>
+            <FaSearch />
+          </button>
+        </div>
         <nav className="menu">
           <ul>
             <li className="menu-item active">Browse</li>
             <li className="menu-item">Trending</li>
             <li className="menu-item">
-              <Link to="/connections-page" style={{textDecoration: 'none', color:'#000'}}>Connections</Link>
+              <Link to="/connections-page" style={{ textDecoration: 'none', color: '#000' }}>Connections</Link>
             </li>
             <li className="menu-item">Coming Soon</li>
             <li className="menu-item">Chat with Friends</li>
@@ -105,19 +109,17 @@ const HomePage = () => {
 
         <div className="movie-section">
           <h2>Similar Movie Suggestions</h2>
-          <div className="suggestions">
-            <div className="suggestion">
-              <img src="/images/Movie2.jpeg" alt="The Godfather" />
-              <p>The Godfather</p>
-            </div>
-            <div className="suggestion">
-              <img src="/images/Movie3.jpeg" alt="Scarface" />
-              <p>Scarface</p>
-            </div>
-            <div className="suggestion">
-              <img src="/images/Movie1.jpeg" alt="Reservoir Dogs" />
-              <p>Reservoir Dogs</p>
-            </div>
+          <div className="suggestions-container">
+            {movies.map((movie) => (
+              <div key={movie.id} className="suggestion">
+                <img
+                  src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+                  alt={movie.title}
+                  style={{ borderRadius: '5px' }}
+                />
+                <p>{movie.title}</p>
+              </div>
+            ))}
           </div>
         </div>
       </main>
