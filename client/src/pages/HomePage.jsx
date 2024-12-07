@@ -3,11 +3,17 @@ import { useNavigate, Link } from 'react-router-dom';
 import '../styles/HomePage.css';
 import axios from 'axios';
 import { FaSearch } from 'react-icons/fa';
+import { useUser } from "../contexts/UserContext";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [movies, setMovies] = useState([]);
+  const [userInfo, setUserInfo] = useState(() => {
+    const storedUserInfo = localStorage.getItem('userInfo');
+    return storedUserInfo ? JSON.parse(storedUserInfo) : {};
+  });
   const [searchQuery, setSearchQuery] = useState('');
+  const { email } = useUser();
   const API_KEY = '0a9df2a7c19a7159901f6523aef5cc22';
   const BASE_URL = 'https://api.themoviedb.org/3';
 
@@ -21,8 +27,33 @@ const HomePage = () => {
       }
     };
 
+    const fetchUserInfo = async () => {
+      const data = { email };
+      let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'http://localhost:4000/home-page',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: data,
+      };
+      try {
+        const response = await axios.request(config);
+        setUserInfo(response.data);
+        localStorage.setItem('userInfo', JSON.stringify(response.data)); 
+      } catch (error) {
+        console.error('Error getting the data from database!!!', error);
+      }
+    };
+
     fetchPopularMovies();
-  }, []);
+
+    // Fetch user info only if it’s not already in localStorage
+    if (!localStorage.getItem('userInfo')) {
+      fetchUserInfo();
+    }
+  }, [email]);
 
   const handleSearch = async () => {
     if (searchQuery.trim() === '') {
@@ -44,6 +75,7 @@ const HomePage = () => {
       .then((response) => {
         if (response.ok) {
           localStorage.removeItem('authToken'); // Clear the token from localStorage
+          localStorage.removeItem('userInfo'); // Clear user info from localStorage
           navigate('/login');
         } else {
           console.error('Failed to log out from server');
@@ -84,7 +116,7 @@ const HomePage = () => {
         </nav>
         <div className="footer">
           <div className="settings" onClick={handleLogout}>🔓 Logout</div>
-          <div className="profile">👤 My Profile</div>
+          <div className="profile">👤 {userInfo.firstName ? userInfo.firstName : 'Guest'}</div>
         </div>
       </aside>
 
