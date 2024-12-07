@@ -14,6 +14,7 @@ const HomePage = () => {
   });
   const [searchQuery, setSearchQuery] = useState('');
   const { email } = useUser();
+  const [searchQuery, setSearchQuery] = useState('');
   const API_KEY = '0a9df2a7c19a7159901f6523aef5cc22';
   const BASE_URL = 'https://api.themoviedb.org/3';
 
@@ -44,6 +45,8 @@ const HomePage = () => {
         localStorage.setItem('userInfo', JSON.stringify(response.data)); 
       } catch (error) {
         console.error('Error getting the data from database!!!', error);
+      } catch (error) {
+        console.error('Error fetching popular movies:', error);
       }
     };
 
@@ -54,6 +57,7 @@ const HomePage = () => {
       fetchUserInfo();
     }
   }, [email]);
+  }, []);
 
   const handleSearch = async () => {
     if (searchQuery.trim() === '') {
@@ -142,6 +146,7 @@ const HomePage = () => {
 
         <div className="movie-section">
           <h2>Popular Movie Suggestions</h2>
+          <h2>Similar Movie Suggestions</h2>
           <div className="suggestions-container">
             {movies.map((movie) => (
               <div key={movie.id} className="suggestion">
@@ -149,6 +154,7 @@ const HomePage = () => {
                   src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
                   alt={movie.title}
                   style={{ borderRadius: '10px' }}
+                  style={{ borderRadius: '5px' }}
                 />
                 <p>{movie.title}</p>
               </div>
