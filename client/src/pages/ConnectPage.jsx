@@ -1,9 +1,41 @@
 import React from 'react';
 import '../styles/ConnectPage.css';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from "../contexts/UserContext";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const ConnectPage = () => {
   const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState(() => {
+    const storedUserInfo = localStorage.getItem('userInfo');
+    return storedUserInfo ? JSON.parse(storedUserInfo) : {};
+  });
+  const { email } = useUser();
+  useEffect(()=>{
+    const fetchUserInfo = async () => {
+      const data = { email };
+      let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'http://localhost:4000/home-page',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: data,
+      };
+      try {
+        const response = await axios.request(config);
+        setUserInfo(response.data);
+        localStorage.setItem('userInfo', JSON.stringify(response.data)); 
+      } catch (error) {
+        console.error('Error getting the data from database!!!', error);
+      }
+    };
+    if (!localStorage.getItem('userInfo')) {
+      fetchUserInfo();
+    }
+  }, [email]);
   const handleLogout = () => {
     fetch('http://localhost:4000/logout', {
       method: 'POST',
@@ -21,6 +53,9 @@ const ConnectPage = () => {
         console.error('Error logging out:', error);
       });
   };
+  const handleClick = () => {
+    navigate('/home-page');
+  }
   return (
     <div className="connect-page">
     <header className="header">
@@ -30,10 +65,13 @@ const ConnectPage = () => {
           alt="User"
           className="profile-pic"
         />
-        <span className="username-badge">MUNNA_VAR</span>
+        <span className="username-badge">{userInfo.firstName}</span>
       </div>
       <h1 className="title">MOVIE MiND’s - Connect</h1>
+      <div className='connect-buttons'>
+      <button className='homepage-btn' onClick={handleClick}>BROWSE</button>
       <button className="logout-btn" onClick={handleLogout}>LOGOUT</button>
+      </div>
     </header>
 
     {/* Search Section */}
@@ -42,7 +80,7 @@ const ConnectPage = () => {
       <div className="search-inputs">
         <input type="text" placeholder="Enter Email Address..." />
         <span className="or">OR</span>
-        <input type="text" placeholder="Enter Username..." />
+        <input type="text" placeholder="Enter First Name..." />
         <button className="connect-btn">CONNECT</button>
       </div>
     </div>

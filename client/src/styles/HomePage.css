@@ -43,7 +43,7 @@
 }
 
 .footer {
-  margin-top: 385px;
+  margin-top: 350px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -140,6 +140,7 @@
   font-size: 24px;
   color: white;
   margin-bottom: 20px;
+  margin-left: 15px;
 }
 
 .suggestion {
@@ -206,6 +207,7 @@
 .suggestions-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr); /* Five movies per row */
+  gap: 60px;
   gap: 20px;
   overflow-y: auto;
   max-height: 400px; /* Set the maximum height for the scrollable section */
@@ -225,6 +227,10 @@
   text-align: center;
 }
 
+
+.suggestion {
+  text-align: center;
+}
 .suggestion img {
   width: 150px;
   height: 225px;

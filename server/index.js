@@ -133,13 +133,26 @@ app.get('/signup-step2', async (req, res)=>{
     res.json(users);
 })
 
-// app.get('/home-page', authenticateToken, (req, res) => {
-//     res.json({ message: `Welcome to the home page!` });
-// });
-app.get('/home-page',authenticateToken, (req, res) => {
+app.get('/home-page',authenticateToken, async (req, res) => {
     console.log("hi")
     res.json({ message: `Welcome to the home page!` });
 });
+
+app.post('/home-page', async (req, res)=>{
+  const {email} = req.body;
+  try{
+    const user = await User.findOne({email});
+  
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+    return res.json(user);
+  }catch (e) {
+    console.error(e);
+    res.status(400).json({ error: "User details not fetched", details: e });
+}
+});
+
 
 
 

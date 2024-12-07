@@ -3,16 +3,17 @@ import Header from '../components/Header';
 import '../styles/Login.css';
 import axios from 'axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useUser } from "../contexts/UserContext";
 
 const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const[email, setEmailInput] = useState('');
   const[password, setPassword] = useState('');
+  const { setEmail } = useUser();
   const handleLogin = async (email, password) => {
-    console.log(email, password);
     let data = { email, password };
-  
+    setEmail(email);
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
