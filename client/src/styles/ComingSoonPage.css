@@ -1,0 +1,82 @@
+/* General container layout */
+.comingsoon-container-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  /* Card styling */
+  .comingsoon-card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+  
+  .comingsoon-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .comingsoon-card img {
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .movie-info-comingsoon {
+    padding: 10px;
+  }
+  
+  .movie-title-comingsoon {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 5px 0;
+    color: white;
+  }
+  
+  .movie-genre-comingsoon {
+    font-size: 14px;
+    color: white;
+  }
+  
+  /* Sidebar */
+  .sidebar-comingsoon {
+    width: 20%;
+    background-color: #fff;
+    border-right: 1px solid #ccc;
+    padding: 20px;
+  }
+  
+  .menu ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .menu-item {
+    font-size: 18px;
+    margin: 10px 0;
+    cursor: pointer;
+  }
+  
+  .menu-item.active {
+    font-weight: bold;
+    color: #b31d1d;
+  }
+  
+  .comingsoon-content {
+    width: 80%;
+    padding: 20px;
+    overflow-y: auto;
+    background: linear-gradient(to bottom, #f0f0f0, #202020);
+  }
+  
+  .comingsoon-container {
+    display: flex;
+    height: 100vh;
+    background-color: #000;
+    color: black;
+  }
+  
