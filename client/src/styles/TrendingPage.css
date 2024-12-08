@@ -1,0 +1,93 @@
+/* General container layout */
+.trending-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  /* Card styling */
+  .trending-card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+  
+  .trending-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .trending-card img {
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .movie-info-trending {
+    padding: 10px;
+  }
+  
+  .movie-title-trending {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 5px 0;
+    color: white;
+  }
+  
+  .movie-genre {
+    font-size: 14px;
+    color:white;
+  }
+  
+  .rating-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ffd700;
+    color: black;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 5px 8px;
+    border-radius: 50%;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 20%;
+    background-color: #fff;
+    border-right: 1px solid #ccc;
+    padding: 20px;
+  }
+  
+  
+  
+  .menu ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .menu-item {
+    font-size: 18px;
+    margin: 10px 0;
+    cursor: pointer;
+  }
+  
+  .menu-item.active {
+    font-weight: bold;
+    color: #b31d1d;
+  }
+  .content-trending{
+    width: 80%;
+    padding: 20px;
+    overflow-y: auto;
+    background: linear-gradient(to bottom, #f0f0f0, #202020);
+  }
+  .trendingpage-container{
+    display: flex;
+    height: 100vh;
+    background-color: #000;
+    color: black;
+  }

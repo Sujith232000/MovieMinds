@@ -9,6 +9,8 @@ import ForgotPassword from './pages/ForgotPassword';
 import { UserProvider } from "../src/contexts/UserContext";
 import ProtectedRoute from './components/ProtectedRoute';
 import ConnectPage from './pages/ConnectPage';
+import TrendingPage from './pages/TrendingPage';
+import ComingSoonPage from './pages/ComingSoonPage';
 
 function App() {
   return (
@@ -25,11 +27,21 @@ function App() {
             </ProtectedRoute>
         } />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
-        <Route path="connections-page" element={
+        <Route path="/connections-page" element={
           <ProtectedRoute>
           <ConnectPage />
           </ProtectedRoute>
           } />
+        <Route path="/trending-page" element={
+          <ProtectedRoute>
+            <TrendingPage/>
+          </ProtectedRoute>
+        } />
+        <Route path="/coming-soon-page" element={
+          <ProtectedRoute>
+            <ComingSoonPage/>
+          </ProtectedRoute>
+        } />
       </Routes>
     </Router>
     </UserProvider>

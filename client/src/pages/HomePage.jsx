@@ -3,13 +3,20 @@ import { useNavigate, Link } from 'react-router-dom';
 import '../styles/HomePage.css';
 import axios from 'axios';
 import { FaSearch } from 'react-icons/fa';
+import { useUser } from "../contexts/UserContext";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [movies, setMovies] = useState([]);
+  const [userInfo, setUserInfo] = useState(() => {
+    const storedUserInfo = localStorage.getItem('userInfo');
+    return storedUserInfo ? JSON.parse(storedUserInfo) : {};
+  });
   const [searchQuery, setSearchQuery] = useState('');
+  const { email } = useUser();
   const API_KEY = '0a9df2a7c19a7159901f6523aef5cc22';
   const BASE_URL = 'https://api.themoviedb.org/3';
+  const {setUserDetails} = useUser();
 
   useEffect(() => {
     const fetchPopularMovies = async () => {
@@ -21,8 +28,33 @@ const HomePage = () => {
       }
     };
 
+    const fetchUserInfo = async () => {
+      const data = { email };
+      let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'http://localhost:4000/home-page',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: data,
+      };
+      try {
+        const response = await axios.request(config);
+        setUserInfo(response.data);
+        localStorage.setItem('userInfo', JSON.stringify(response.data)); 
+      } catch (error) {
+        console.error('Error getting the data from database!!!', error);
+      }
+    };
+
     fetchPopularMovies();
-  }, []);
+
+    // Fetch user info only if it’s not already in localStorage
+    if (!localStorage.getItem('userInfo')) {
+      fetchUserInfo();
+    }
+  }, [email]);
 
   const handleSearch = async () => {
     if (searchQuery.trim() === '') {
@@ -44,6 +76,7 @@ const HomePage = () => {
       .then((response) => {
         if (response.ok) {
           localStorage.removeItem('authToken'); // Clear the token from localStorage
+          localStorage.removeItem('userInfo'); // Clear user info from localStorage
           navigate('/login');
         } else {
           console.error('Failed to log out from server');
@@ -53,6 +86,7 @@ const HomePage = () => {
         console.error('Error logging out:', error);
       });
   };
+  setUserDetails(userInfo.firstName);
 
   return (
     <div className="homepage-container">
@@ -65,25 +99,31 @@ const HomePage = () => {
             className="search-bar"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleSearch}
           />
           <button className="search-button" onClick={handleSearch}>
             <FaSearch />
           </button>
         </div>
         <nav className="menu">
-          <ul>
-            <li className="menu-item active">Browse</li>
-            <li className="menu-item">Trending</li>
-            <li className="menu-item">
+        <ul>
+            <li className="menu-item-home active">
+            <Link to="/home-page" style={{ textDecoration: 'none', color: '#93131B', fontSize:'x-large' }}>Browse</Link></li>
+            <li className="menu-item-home">
+            <Link to="/trending-page" style={{ textDecoration: 'none', color: '#000' }}>Trending</Link>
+            </li>
+            <li className="menu-item-home">
               <Link to="/connections-page" style={{ textDecoration: 'none', color: '#000' }}>Connections</Link>
             </li>
-            <li className="menu-item">Coming Soon</li>
-            <li className="menu-item">Chat with Friends</li>
+            <li className="menu-item-home">
+            <Link to="/coming-soon-page" style={{ textDecoration: 'none', color: '#000' }}>Coming Soon</Link>
+            </li>
+            <li className="menu-item-home" style={{ textDecoration: 'none', color: '#000' }}>Chat with Friends</li>
           </ul>
         </nav>
         <div className="footer">
           <div className="settings" onClick={handleLogout}>🔓 Logout</div>
-          <div className="profile">👤 My Profile</div>
+          <div className="profile">👤 {userInfo.firstName ? userInfo.firstName : 'Guest'}</div>
         </div>
       </aside>
 
@@ -105,17 +145,17 @@ const HomePage = () => {
               <button className="trailer-button">TRAILER</button>
             </div>
           </div>
-        </div>
+        </div>  
 
         <div className="movie-section">
-          <h2>Similar Movie Suggestions</h2>
+          <h2>Popular Movie Suggestions</h2>
           <div className="suggestions-container">
             {movies.map((movie) => (
               <div key={movie.id} className="suggestion">
                 <img
                   src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
                   alt={movie.title}
-                  style={{ borderRadius: '5px' }}
+                  style={{ borderRadius: '10px' }}
                 />
                 <p>{movie.title}</p>
               </div>

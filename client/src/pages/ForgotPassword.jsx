@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import Header from '../components/Header'; // Header included
 import '../styles/Login.css';
 import { Link, useNavigate } from 'react-router-dom';
@@ -35,31 +35,31 @@ const ForgotPassword = () => {
       alert("Failed to update password. Please try again.");
     }
   };
-  //useEffect(() => {
-    const fetchHomepageData = async () => {
-      try {
-        const token = localStorage.getItem('authToken');
-        if (!token) {
-          console.error('No token found. Redirecting to login.');
-          navigate('/login');
-          return;
-        }
+// useEffect(() => {
+//     const fetchHomepageData = async () => {
+//       try {
+//         const token = localStorage.getItem('authToken');
+//         if (!token) {
+//           console.error('No token found. Redirecting to login.');
+//           navigate('/login');
+//           return;
+//         }
 
-        const response = await axios.get('http://localhost:4000/forgot-password', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+//         const response = await axios.get('http://localhost:4000/forgot-password', {
+//           headers: {
+//             Authorization: `Bearer ${token}`,
+//           },
+//         });
 
-        console.log('Forgot Password data:', response.data);
-      } catch (error) {
-        console.error('Error fetching forgot password page data:', error);
-        navigate('/login');
-      }
-    };
+//         console.log('Forgot Password data:', response.data);
+//       } catch (error) {
+//         console.error('Error fetching forgot password page data:', error);
+//         navigate('/login');
+//       }
+//     };
 
-    fetchHomepageData();
-  //}, [navigate]);
+//     fetchHomepageData();
+//   }, [navigate]);
 
   return (
     <div className="login-page">
