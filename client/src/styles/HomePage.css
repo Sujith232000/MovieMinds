@@ -208,7 +208,6 @@
   display: grid;
   grid-template-columns: repeat(5, 1fr); /* Five movies per row */
   gap: 60px;
-  gap: 20px;
   overflow-y: auto;
   max-height: 400px; /* Set the maximum height for the scrollable section */
   padding: 10px;
@@ -227,10 +226,6 @@
   text-align: center;
 }
 
-
-.suggestion {
-  text-align: center;
-}
 .suggestion img {
   width: 150px;
   height: 225px;
