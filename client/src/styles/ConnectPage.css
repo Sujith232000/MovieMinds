@@ -107,7 +107,9 @@
   .content-section {
     display: flex; 
     gap: 2px;
-    height: 82vh;
+    /* height: 82vh; */
+    height: calc(100vh - 150px); /* Adjust based on the header and other sections */
+    overflow: hidden;
   }
   
   .friends-section,
@@ -116,11 +118,18 @@
     padding: 20px;
     border-radius: 5px;
     min-height: auto;
+    scroll-padding-bottom: 20px;
   }
   
   .friends-section {
     background: #fff;
     color: black;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Enable vertical scrolling */
+    height: calc(100vh - 200px); /* Adjust height as needed */
+    /* max-height: 400px; Set maximum height for scrolling */
   }
   
   .pending-requests-section {
@@ -137,8 +146,9 @@
     border-radius: 10px;
     color: white;
     width: fit-content;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
   
   .friends-section ul,
@@ -152,7 +162,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 15px 0;
+    margin: 10px 0;
+    padding: 10px;
     flex-wrap: wrap; 
   }
   
@@ -215,4 +226,86 @@
       text-align: center;
     }
   }
+
+  
+
+  .matching-users-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .matching-user {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15px 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #f9f9f9;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .matching-user:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-grow: 1;
+  }
+  
+  .user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #93131B;
+  }
+  
+  .user-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .user-name {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  
+  .social-link {
+    font-size: 0.9rem;
+    color: #0073e6;
+    text-decoration: none;
+    margin-top: 5px;
+  }
+  
+  .social-link:hover {
+    text-decoration: underline;
+    color: #93131B;
+  }
+  
+  .connect-btn {
+    background: #93131B;
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .connect-btn:hover {
+    background-color: #6e0f15;
+    transform: scale(1.05);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+  }
+  
   

@@ -7,16 +7,26 @@ import { useUser } from "../contexts/UserContext";
 
 const SignupStep2 = () => {
   const location = useLocation();
+  const email = location.state?.email || ''; 
   const navigate = useNavigate();
   const [preference1, setPreference1] = useState("");
   const [preference2, setPreference2] = useState("");
   const [preference3, setPreference3] = useState("");
   const [preLanguage, setPreLanguage] = useState("");
   const [socialLinks, setSocialLinks] = useState("");
-  const { email } = useUser();
+  // const { email } = useUser();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const payload = {
+      email,
+      preference1,
+      preference2,
+      preference3,
+      preLanguage,
+      socialLinks,
+    };
+    console.log('Payload:', payload); // Log the payload
     if (!preference1 || !preference2 || !preference3 || !preLanguage || !socialLinks) {
       alert("Please fill out all the fields");
       return;
@@ -25,15 +35,7 @@ const SignupStep2 = () => {
     try {
       const response = await fetch('http://localhost:4000/signup-step2', {
         method: "POST",
-        body: JSON.stringify(
-          { 
-            email,
-            preference1, 
-            preference2, 
-            preference3, 
-            preLanguage, 
-            socialLinks ,
-          }),
+        body: JSON.stringify(payload),
         headers: { "Content-Type": "application/json" },
       });
 

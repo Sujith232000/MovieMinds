@@ -25,8 +25,9 @@ const SignupStep1 = () => {
             headers: {'Content-Type':'application/json'},
     })
     if(response.status === 200){
-        setEmail(email);
-        navigate('/signup-step2');
+        // setEmail(email);
+        // navigate('/signup-step2');
+        navigate('/signup-step2', { state: { email } });
     }else{
         alert('registration failed')
     }

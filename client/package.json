@@ -1,6 +1,10 @@
 {
   "name": "movie-minds",
   "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+      "start": "node index.js"
+  },
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
