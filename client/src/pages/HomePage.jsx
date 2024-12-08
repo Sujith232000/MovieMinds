@@ -16,6 +16,7 @@ const HomePage = () => {
   const { email } = useUser();
   const API_KEY = '0a9df2a7c19a7159901f6523aef5cc22';
   const BASE_URL = 'https://api.themoviedb.org/3';
+  const {setUserDetails} = useUser();
 
   useEffect(() => {
     const fetchPopularMovies = async () => {
@@ -85,6 +86,7 @@ const HomePage = () => {
         console.error('Error logging out:', error);
       });
   };
+  setUserDetails(userInfo.firstName);
 
   return (
     <div className="homepage-container">
@@ -104,14 +106,19 @@ const HomePage = () => {
           </button>
         </div>
         <nav className="menu">
-          <ul>
-            <li className="menu-item active">Browse</li>
-            <li className="menu-item">Trending</li>
-            <li className="menu-item">
+        <ul>
+            <li className="menu-item-home active">
+            <Link to="/home-page" style={{ textDecoration: 'none', color: '#93131B', fontSize:'x-large' }}>Browse</Link></li>
+            <li className="menu-item-home">
+            <Link to="/trending-page" style={{ textDecoration: 'none', color: '#000' }}>Trending</Link>
+            </li>
+            <li className="menu-item-home">
               <Link to="/connections-page" style={{ textDecoration: 'none', color: '#000' }}>Connections</Link>
             </li>
-            <li className="menu-item">Coming Soon</li>
-            <li className="menu-item">Chat with Friends</li>
+            <li className="menu-item-home">
+            <Link to="/coming-soon-page" style={{ textDecoration: 'none', color: '#000' }}>Coming Soon</Link>
+            </li>
+            <li className="menu-item-home" style={{ textDecoration: 'none', color: '#000' }}>Chat with Friends</li>
           </ul>
         </nav>
         <div className="footer">
