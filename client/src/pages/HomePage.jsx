@@ -123,9 +123,15 @@ const HomePage = () => {
               <Link to="/coming-soon-page" style={{ textDecoration: 'none', color: '#000' }}>Coming Soon</Link>
             </li>
             <li className="menu-item-home" style={{ textDecoration: 'none', color: '#000' }}>Chat with Friends</li>
-            <li className="menu-item-home"><a href="http://localhost:8501" target="_blank" rel="noopener noreferrer">
-              Recommend
-            </a>
+            <li className="menu-item-home">
+              <a
+                href="http://localhost:8501"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: 'none', color: '#000' }}
+              >
+                Recommend
+              </a>
             </li>
           </ul>
         </nav>

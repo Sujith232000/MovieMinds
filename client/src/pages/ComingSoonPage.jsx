@@ -13,7 +13,7 @@ const ComingSoonPage = () => {
   const API_KEY = '0a9df2a7c19a7159901f6523aef5cc22';
   const BASE_URL = 'https://api.themoviedb.org/3';
   const navigate = useNavigate();
-  const {userDetails} = useUser();
+  const { userDetails } = useUser();
 
   // Fetch Genres
   const fetchGenres = async () => {
@@ -81,7 +81,7 @@ const ComingSoonPage = () => {
 
   return (
     <div className="comingsoon-container">
-     <aside className="sidebar">
+      <aside className="sidebar">
         <h1 className="logo" style={{ fontWeight: '1000', fontSize: '32px' }}>MOVIE MiND's</h1>
         <div className="search-container">
           <input
@@ -97,24 +97,34 @@ const ComingSoonPage = () => {
           </button>
         </div>
         <nav className="menu">
-        <ul>
+          <ul>
             <li className="menu-item-home">
-            <Link to="/home-page" style={{ textDecoration: 'none', color: '#000' }}>Browse</Link></li>
+              <Link to="/home-page" style={{ textDecoration: 'none', color: '#000' }}>Browse</Link></li>
             <li className="menu-item-home">
-            <Link to="/trending-page" style={{ textDecoration: 'none', color: '#000' }}>Trending</Link>
+              <Link to="/trending-page" style={{ textDecoration: 'none', color: '#000' }}>Trending</Link>
             </li>
             <li className="menu-item-home">
               <Link to="/connections-page" style={{ textDecoration: 'none', color: '#000' }}>Connections</Link>
             </li>
             <li className="menu-item active">
-            <Link to="/coming-soon-page" style={{ textDecoration: 'none', color: '#93131B', fontSize:'x-large' }}>Coming Soon</Link>
+              <Link to="/coming-soon-page" style={{ textDecoration: 'none', color: '#93131B', fontSize: 'x-large' }}>Coming Soon</Link>
             </li>
             <li className="menu-item-home" style={{ textDecoration: 'none', color: '#000' }}>Chat with Friends</li>
+            <li className="menu-item-home">
+              <a
+                href="http://localhost:8501"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: 'none', color: '#000' }}
+              >
+                Recommend
+              </a>
+            </li>
           </ul>
         </nav>
         <div className="footer">
           <div className="settings" onClick={handleLogout}>🔓 Logout</div>
-          <div className="profile">👤 {userDetails?userDetails:"Guest"}</div>
+          <div className="profile">👤 {userDetails ? userDetails : "Guest"}</div>
         </div>
       </aside>
       <main className="comingsoon-content">
