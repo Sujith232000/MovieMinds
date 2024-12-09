@@ -16,7 +16,9 @@ const HomePage = () => {
   const { email } = useUser();
   const API_KEY = '0a9df2a7c19a7159901f6523aef5cc22';
   const BASE_URL = 'https://api.themoviedb.org/3';
-  const {setUserDetails} = useUser();
+
+  const { setUserDetails } = useUser();
+
 
   useEffect(() => {
     const fetchPopularMovies = async () => {
@@ -42,7 +44,9 @@ const HomePage = () => {
       try {
         const response = await axios.request(config);
         setUserInfo(response.data);
-        localStorage.setItem('userInfo', JSON.stringify(response.data)); 
+
+        localStorage.setItem('userInfo', JSON.stringify(response.data));
+
       } catch (error) {
         console.error('Error getting the data from database!!!', error);
       }
@@ -106,19 +110,29 @@ const HomePage = () => {
           </button>
         </div>
         <nav className="menu">
-        <ul>
+          <ul>
             <li className="menu-item-home active">
-            <Link to="/home-page" style={{ textDecoration: 'none', color: '#93131B', fontSize:'x-large' }}>Browse</Link></li>
+              <Link to="/home-page" style={{ textDecoration: 'none', color: '#93131B', fontSize: 'x-large' }}>Browse</Link></li>
             <li className="menu-item-home">
-            <Link to="/trending-page" style={{ textDecoration: 'none', color: '#000' }}>Trending</Link>
+              <Link to="/trending-page" style={{ textDecoration: 'none', color: '#000' }}>Trending</Link>
             </li>
             <li className="menu-item-home">
               <Link to="/connections-page" style={{ textDecoration: 'none', color: '#000' }}>Connections</Link>
             </li>
             <li className="menu-item-home">
-            <Link to="/coming-soon-page" style={{ textDecoration: 'none', color: '#000' }}>Coming Soon</Link>
+              <Link to="/coming-soon-page" style={{ textDecoration: 'none', color: '#000' }}>Coming Soon</Link>
             </li>
             <li className="menu-item-home" style={{ textDecoration: 'none', color: '#000' }}>Chat with Friends</li>
+            <li className="menu-item-home">
+              <a
+                href="http://localhost:8501"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: 'none', color: '#000' }}
+              >
+                Recommend
+              </a>
+            </li>
           </ul>
         </nav>
         <div className="footer">
@@ -145,7 +159,7 @@ const HomePage = () => {
               <button className="trailer-button">TRAILER</button>
             </div>
           </div>
-        </div>  
+        </div>
 
         <div className="movie-section">
           <h2>Popular Movie Suggestions</h2>

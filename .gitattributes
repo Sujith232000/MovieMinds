@@ -1,1 +1,6 @@
 client/src/assets/videos/*.mp4 filter=lfs diff=lfs merge=lfs -text
+<<<<<<< HEAD
+=======
+Files/*.pkl filter=lfs diff=lfs merge=lfs -text
+*.pkl filter=lfs diff=lfs merge=lfs -text
+>>>>>>> 37cf8fd36 (Add new feature)
