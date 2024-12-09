@@ -13,8 +13,8 @@ function WelcomePage() {
     return (
         <div className="welcome-page-container">
             <video className="background-video" autoPlay muted loop>
-            <source src={videoFile} type="video/mp4"/>
-            Your browser does not support the video tag.
+                <source src={videoFile} type="video/mp4" />
+                Your browser does not support the video tag.
             </video>
             <div className="welcome-page">
                 <h1>WELCOME TO MOVIE MIND's.....</h1>
