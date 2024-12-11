@@ -2,21 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/ProfilePage.css';
 
-
 const ProfilePage = () => {
   const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    preference1: '',
+    preference2: '',
+    preference3: '',
+    socialLinks: '',
     website: 'https://www.godaddy.com/username',
     twitter: '@shelby_london',
     instagram: 'N/A',
     facebook: 'N/A',
   });
-  const[firstName, setFirstName] = useState("");
-  const[lastName, setLastName] = useState("");
-  const [preference1, setPreference1] = useState("");
-  const [preference2, setPreference2] = useState("");
-  const [preference3, setPreference3] = useState("");
   const navigate = useNavigate();
   const email = localStorage.getItem('email');
+
   const handleLogout = () => {
     fetch('http://localhost:4000/logout', {
       method: 'POST',
@@ -35,19 +36,20 @@ const ProfilePage = () => {
         console.error('Error logging out:', error);
       });
   };
+
   const handleSaveChanges = async (event) => {
     event.preventDefault();
-    if (!firstName || !lastName || !preference1 || !preference2 || !preference3) {
+
+    // Validate required fields
+    const { firstName, lastName, preference1, preference2, preference3, socialLinks } = formData;
+    if (!firstName || !lastName || !preference1 || !preference2 || !preference3 || !socialLinks) {
       alert("Please fill out all the fields");
       return;
     }
+
     const payload = {
       email,
-      firstName,
-      lastName,
-      preference1,
-      preference2,
-      preference3,
+      ...formData, // Use formData directly
     };
     console.log('Payload:', payload);
 
@@ -60,9 +62,16 @@ const ProfilePage = () => {
 
       if (response.ok) {
         alert("Details updated successfully!!");
-        setPreference1("");
-        setPreference2("");
-        setPreference3("");
+        setFormData({
+          preference1: '',
+          preference2: '',
+          preference3: '',
+          socialLinks: '',
+          website: 'https://www.godaddy.com/username',
+          twitter: '@shelby_london',
+          instagram: 'N/A',
+          facebook: 'N/A',
+        });
       } else {
         alert("Failed to submit your responses.");
       }
@@ -71,6 +80,7 @@ const ProfilePage = () => {
       alert("An error occurred while updating your responses");
     }
   };
+
   const deleteUserProfile = async () => {
     if (!email) {
       alert('Email is missing. Unable to delete user.');
@@ -90,7 +100,7 @@ const ProfilePage = () => {
         console.log('Deleted User:', data.deletedUser);
         localStorage.removeItem('authToken');
         localStorage.removeItem('email');
-        navigate('/signup-step1')
+        navigate('/signup-step1');
       } else {
         const errorData = await response.json();
         alert(`Failed to delete user: ${errorData.error}`);
@@ -100,7 +110,6 @@ const ProfilePage = () => {
       alert('An error occurred. Please try again later.');
     }
   };
-  
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -108,18 +117,21 @@ const ProfilePage = () => {
         const token = localStorage.getItem('authToken');
 
         const response = await fetch('http://localhost:4000/profile', {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-             },
-          });
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (response.ok) {
           const data = await response.json();
-          setFirstName(data.firstName);
-          setLastName(data.lastName);
+          setFormData((prev) => ({
+            ...prev,
+            firstName: data.firstName,
+            lastName: data.lastName,
+          }));
         } else if (response.status === 404) {
           console.error('User not found');
           alert('User not found');
@@ -134,6 +146,13 @@ const ProfilePage = () => {
     fetchUserProfile();
   }, []);
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   return (
     <div className="profile-container">
@@ -144,7 +163,7 @@ const ProfilePage = () => {
           alt="Profile"
         />
         <h2 className="profile-name">
-        {firstName} {lastName}
+          {formData.firstName} {formData.lastName}
         </h2>
         <p className="profile-title">Cinephile/Aspiring Screenwriter</p>
         <p className="profile-location">Arlington, Virginia, USA</p>
@@ -170,7 +189,9 @@ const ProfilePage = () => {
             <span className="profile-detail">{formData.facebook}</span>
           </p>
         </div>
-        <button className="logout-button" onClick={handleLogout}>LOGOUT</button>
+        <button className="logout-button" onClick={handleLogout}>
+          LOGOUT
+        </button>
       </div>
       <div className="profile-edit">
         <form>
@@ -181,8 +202,9 @@ const ProfilePage = () => {
               id="firstName"
               name="firstName"
               value={formData.firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            required/>
+              onChange={handleInputChange}
+              required
+            />
           </div>
           <div className="form-group-inline">
             <label htmlFor="lastName">Last Name:</label>
@@ -191,8 +213,9 @@ const ProfilePage = () => {
               id="lastName"
               name="lastName"
               value={formData.lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            required/>
+              onChange={handleInputChange}
+              required
+            />
           </div>
           <div className="form-group-inline">
             <label htmlFor="preference1">Movie Preference 1:</label>
@@ -200,9 +223,12 @@ const ProfilePage = () => {
               id="preference1"
               name="preference1"
               value={formData.preference1}
-              onChange={(e) => setPreference1(e.target.value)}
-            required>
-              <option value="" style={{fontFamily: 'Aerial'}}>Select Preference 1</option>
+              onChange={handleInputChange}
+              required
+            >
+              <option value="" style={{ fontFamily: 'Aerial' }}>
+                Select Preference 1
+              </option>
               <option value="Action">Action</option>
               <option value="Drama">Drama</option>
               <option value="Comedy">Comedy</option>
@@ -214,9 +240,12 @@ const ProfilePage = () => {
               id="preference2"
               name="preference2"
               value={formData.preference2}
-              onChange={(e) => setPreference2(e.target.value)}
-            required>
-              <option value="" style={{fontFamily: 'Aerial'}}>Select Preference 2</option>
+              onChange={handleInputChange}
+              required
+            >
+              <option value="" style={{ fontFamily: 'Aerial' }}>
+                Select Preference 2
+              </option>
               <option value="Horror">Horror</option>
               <option value="Romance">Romance</option>
               <option value="Sci-Fi">Sci-Fi</option>
@@ -228,13 +257,27 @@ const ProfilePage = () => {
               id="preference3"
               name="preference3"
               value={formData.preference3}
-              onChange={(e) => setPreference3(e.target.value)}
-            required>
-              <option value="" style={{fontFamily: 'Aerial'}}>Select Preference 3</option>
+              onChange={handleInputChange}
+              required
+            >
+              <option value="" style={{ fontFamily: 'Aerial' }}>
+                Select Preference 3
+              </option>
               <option value="Thriller">Thriller</option>
               <option value="Adventure">Adventure</option>
               <option value="Fantasy">Fantasy</option>
             </select>
+          </div>
+          <div className="form-group-inline">
+            <label htmlFor="socialLinks">Social Media URL:</label>
+            <input
+              type="text"
+              id="socialLinks"
+              name="socialLinks"
+              value={formData.socialLinks}
+              onChange={handleInputChange}
+              required
+            />
           </div>
           <button
             type="button"
@@ -249,7 +292,9 @@ const ProfilePage = () => {
         <Link to="/home-page">← Back to Browse</Link>
         <div className="delete-container">
           <h3>Need a fresh start?</h3>
-          <button className="save-button" onClick={deleteUserProfile}>DELETE PROFILE</button>
+          <button className="save-button" onClick={deleteUserProfile}>
+            DELETE PROFILE
+          </button>
         </div>
       </div>
     </div>

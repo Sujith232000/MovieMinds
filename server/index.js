@@ -149,11 +149,11 @@ app.get('/profile',authenticateToken, async (req, res) => {
 });
 
 app.post('/profile', async(req, res) => {
-  const { email, firstName, lastName, preference1, preference2, preference3} = req.body;
+  const { email, firstName, lastName, preference1, preference2, preference3, socialLinks} = req.body;
   try {
     const updatedUser = await User.findOneAndUpdate(
        { email },
-        { firstName, lastName, preference1, preference2, preference3}
+        { firstName, lastName, preference1, preference2, preference3, socialLinks}
     );
 
    if (!updatedUser) {
