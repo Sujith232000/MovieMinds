@@ -11,6 +11,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import ConnectPage from './pages/ConnectPage';
 import TrendingPage from './pages/TrendingPage';
 import ComingSoonPage from './pages/ComingSoonPage';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   return (
@@ -40,6 +41,11 @@ function App() {
         <Route path="/coming-soon-page" element={
           <ProtectedRoute>
             <ComingSoonPage/>
+          </ProtectedRoute>
+        } />
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <ProfilePage/>
           </ProtectedRoute>
         } />
       </Routes>

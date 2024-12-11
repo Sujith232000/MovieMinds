@@ -74,6 +74,10 @@ const ComingSoonPage = () => {
     }
   };
 
+  const handleClick = () =>{
+    navigate('/profile');
+  }
+
   useEffect(() => {
     fetchGenres();
     fetchComingSoonMovies();
@@ -117,14 +121,14 @@ const ComingSoonPage = () => {
                 rel="noopener noreferrer"
                 style={{ textDecoration: 'none', color: '#000' }}
               >
-                Recommend
+                Recommendation Engine
               </a>
             </li>
           </ul>
         </nav>
         <div className="footer">
           <div className="settings" onClick={handleLogout}>🔓 Logout</div>
-          <div className="profile">👤 {userDetails ? userDetails : "Guest"}</div>
+          <div className="profile" onClick={handleClick}>👤 {userDetails ? userDetails : "Guest"}'s Profile</div>
         </div>
       </aside>
       <main className="comingsoon-content">

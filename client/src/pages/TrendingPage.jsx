@@ -73,6 +73,10 @@ const TrendingPage = () => {
       });
   };
 
+  const handleClick = () =>{
+    navigate('/profile');
+  }
+
   useEffect(() => {
     fetchGenres();
     fetchTrendingMovies();
@@ -116,14 +120,14 @@ const TrendingPage = () => {
                 rel="noopener noreferrer"
                 style={{ textDecoration: 'none', color: '#000' }}
               >
-                Recommend
+                Recommendation Engine
               </a>
             </li>
           </ul>
         </nav>
         <div className="footer">
           <div className="settings" onClick={handleLogout}>🔓 Logout</div>
-          <div className="profile">👤 {userDetails ? userDetails : "Guest"}</div>
+          <div className="profile" onClick={handleClick}>👤 {userDetails ? userDetails : "Guest"}'s Profile</div>
         </div>
       </aside>
       <main className="content-trending">

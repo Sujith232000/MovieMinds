@@ -133,16 +133,14 @@ app.put('/forgot-password', async (req, res) => {
 });
 
 //Api to get first name and last name
-app.get('/profile', authenticateToken, async (req, res) => {
+app.get('/profile',authenticateToken, async (req, res) => {
   console.log('Request User:', req.user);
   try {
     // Find the user using the email in the token payload (set in `authenticateToken`)
-    const user = await User.findOne({ email: req.user.email }).select('firstName lastName email');
+    const user = await User.findOne({ email: req.user.email });
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    
-    // Send back user data
     res.json({ firstName: user.firstName, lastName: user.lastName, email: user.email });
   } catch (error) {
     console.error('Error fetching user profile:', error);
@@ -150,36 +148,44 @@ app.get('/profile', authenticateToken, async (req, res) => {
   }
 });
 
-//Api to get matching users
-// app.post('/find-matching-users', authenticateToken, async (req, res) => {
-//   try {
-//     // Ensure no JSON parsing is required here
-//     console.log('Authorization:', req.headers.authorization);
+app.post('/profile', async(req, res) => {
+  const { email, firstName, lastName, preference1, preference2, preference3} = req.body;
+  try {
+    const updatedUser = await User.findOneAndUpdate(
+       { email },
+        { firstName, lastName, preference1, preference2, preference3}
+    );
 
-//     // Get the logged-in user's email
-//     const loggedInUserEmail = req.user.email;
+   if (!updatedUser) {
+        return res.status(404).json({ error: "User not found. Operation cannot be done." });
+   }
+   console.log('Updated user:', updatedUser);
+   res.json(updatedUser);
+} catch (e) {
+    console.error(e);
+    res.status(400).json({ error: "User details updation failed", details: e });
+}
 
-//     // Fetch preferences of the logged-in user
-//     const loggedInUser = await User.findOne({ email: loggedInUserEmail });
-//     if (!loggedInUser) {
-//       return res.status(404).json({ error: 'Logged-in user not found.' });
-//     }
+});
 
-//     const { preference1, preference2, preference3, preLanguage } = loggedInUser;
-//     const matchingUsers = await User.find({
-//       email: { $ne: loggedInUserEmail }, // Exclude logged-in user
-//       preference1: preference1,
-//       preference2: preference2,
-//       preference3: preference3,
-//       preLanguage: preLanguage, // Include language as part of the exact match
-//     }).select('firstName lastName socialLinks');
+app.delete('/profile', async (req, res) => {
+  try {
+    const email = req.body.email;
+    if (!email) {
+      return res.status(400).json({ error: 'Email is required' });
+    }
+    const deletedUser = await User.findOneAndDelete({ email });
+    if (!deletedUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.status(200).json({ message: 'User successfully deleted', deletedUser });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
-//     res.json(matchingUsers);
-//   } catch (error) {
-//     console.error('Error finding matching users:', error);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// });
+
 app.post('/find-matching-users', authenticateToken, async (req, res) => {
   try {
       const { email, fullName } = req.body;

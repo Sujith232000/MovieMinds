@@ -14,6 +14,7 @@ const Login = () => {
   const handleLogin = async (email, password) => {
     let data = { email, password };
     setEmail(email);
+    localStorage.setItem('email', email);
     let config = {
       method: 'post',
       maxBodyLength: Infinity,

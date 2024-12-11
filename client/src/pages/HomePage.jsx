@@ -72,6 +72,10 @@ const HomePage = () => {
     }
   };
 
+  const handleClick = () =>{
+    navigate('/profile');
+  }
+
   const handleLogout = () => {
     fetch('http://localhost:4000/logout', {
       method: 'POST',
@@ -79,8 +83,9 @@ const HomePage = () => {
     })
       .then((response) => {
         if (response.ok) {
-          localStorage.removeItem('authToken'); // Clear the token from localStorage
-          localStorage.removeItem('userInfo'); // Clear user info from localStorage
+          localStorage.removeItem('authToken');
+          sessionStorage.removeItem('authtoken');
+          localStorage.removeItem('userInfo');
           navigate('/login');
         } else {
           console.error('Failed to log out from server');
@@ -130,14 +135,14 @@ const HomePage = () => {
                 rel="noopener noreferrer"
                 style={{ textDecoration: 'none', color: '#000' }}
               >
-                Recommend
+                Recommendation Engine
               </a>
             </li>
           </ul>
         </nav>
         <div className="footer">
           <div className="settings" onClick={handleLogout}>🔓 Logout</div>
-          <div className="profile">👤 {userInfo.firstName ? userInfo.firstName : 'Guest'}</div>
+          <div className="profile" onClick={handleClick}>👤 {userInfo.firstName? userInfo.firstName : 'Guest'}'s Profile</div>
         </div>
       </aside>
 
