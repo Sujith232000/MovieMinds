@@ -187,5 +187,9 @@ streamlit run MovieMinds.py
     Enjoy a user-friendly interface with smooth navigation and visually appealing design, ensuring an enjoyable experience.
 
        ---
+## Test Cases
+
+Test cases can be found under the following path:  
+`client/src/pages`
 
 
