@@ -87,3 +87,26 @@
 1. Clone the repository:
    ```bash
    git clone https://github.com/munavarhs/MovieMinds.git
+
+
+## Use Case:
+
+**User Registration**
+
+1. **Preconditions**  
+   - User must have access to the application.  
+   - A valid email address is required.  
+
+2. **Main Flow**  
+   - User accesses the registration page and provides the required information: first name, last name, email, and password [S1].  
+   - User sets their movie preferences and social media URL [S2].  
+   - The system validates the input and registers the user [S3].  
+
+3. **Subflows**  
+   - [S1] User navigates to the signup page and enters their information in the provided fields.  
+   - [S2] User selects movie preferences and provides a social media URL.  
+   - [S3] System validates the input fields, saves the data, and confirms registration.  
+
+4. **Alternative Flows**  
+   - [E1] User provides an already registered email. The system displays an error message.
+
