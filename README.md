@@ -110,3 +110,23 @@
 4. **Alternative Flows**  
    - [E1] User provides an already registered email. The system displays an error message.
 
+**User Login**
+
+1. **Preconditions**  
+   - User must be registered in the system with a valid email and password.  
+   - The application must be running and accessible.  
+
+2. **Main Flow**  
+   - User navigates to the login page and enters their email and password [S1].  
+   - The system validates the credentials [S2].  
+   - Upon successful validation, the user is granted access to their dashboard [S3].  
+
+3. **Subflows**  
+   - [S1] User enters their registered email and password into the login form.  
+   - [S2] System checks the entered credentials against the stored database records.  
+   - [S3] System redirects the user to their dashboard with a welcome message.  
+
+4. **Alternative Flows**  
+   - [E1] User enters incorrect credentials. The system displays an error message.
+
+
