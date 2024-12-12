@@ -1,0 +1,86 @@
+Movie Minds - Unit Test Suite
+
+Overview
+This test suite covers critical components of the Movie Minds application, focusing on user authentication, registration, and core application functionality.
+Test Files and Scenarios
+
+1. App.test.js
+Purpose: Basic Application Rendering Test
+Tested Scenarios:
+Verifies the welcome page renders correctly
+Checks for the presence of the main heading "WELCOME TO MOVIE MIND's"
+
+
+
+2. ForgotPassword.test.js
+Purpose: Forgot Password Functionality Tests
+Tested Scenarios:
+Component rendering verification
+Form field presence check
+Password mismatch handling
+Successful password reset
+API error handling
+
+Key Test Cases:
+Renders all required form fields
+Displays alert for mismatched passwords
+Successfully submits password reset request
+Gracefully handles API errors
+
+
+
+3. Login.test.js
+Purpose: Login Component Tests
+Tested Scenarios:
+Component rendering verification
+Presence of login form elements
+Context integration (UserContext mocking)
+
+Key Test Cases:
+Renders email and password inputs
+Renders login button
+Verifies context setup
+
+
+
+4. SignupStep1.test.js
+Purpose: User Registration (First Step) Tests
+Tested Scenarios:
+Component rendering verification
+Form input field presence
+Context provider integration
+
+Key Test Cases:
+Renders signup form
+Verifies presence of email, first name, and last name inputs
+Checks initial form state
+
+
+
+Running Tests
+Prerequisites:
+Node.js (v22.11.0)
+Jest testing framework
+@testing-library/react
+React Router DOM
+
+Installation
+# Install project dependencies
+npm install
+
+# Install testing dependencies
+npm install --save-dev @testing-library/react @testing-library/jest-dom jest-environment-jsdom
+
+Test Commands
+Run all tests
+npm test
+
+# Run specific test file
+npm test App.test.js
+
+Testing Technologies:
+Testing Framework: Jest
+Rendering Library: @testing-library/react
+Mocking: Jest Mock Functions
+Routing: React Router DOM
+

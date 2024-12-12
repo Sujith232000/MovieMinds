@@ -72,7 +72,7 @@ const ForgotPassword = () => {
       <div className='login-forgot'>
       <button 
       type="submit" 
-      class="change-pwd-btn" 
+      className="change-pwd-btn" 
       onClick={handleSubmit}>Change Password</button>
       </div>
       </form>
