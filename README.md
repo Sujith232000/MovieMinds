@@ -183,9 +183,9 @@ streamlit run MovieMinds.py
 9. **Trending Movies**  
    Quickly identify trending movies to stay up-to-date with popular choices.
 
-   ---
-
-11. **Interactive UI**  
+10. **Interactive UI**  
     Enjoy a user-friendly interface with smooth navigation and visually appealing design, ensuring an enjoyable experience.
+
+       ---
 
 
