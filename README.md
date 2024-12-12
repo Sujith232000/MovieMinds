@@ -87,7 +87,39 @@
 1. Clone the repository:
    ```bash
    git clone https://github.com/munavarhs/MovieMinds.git
+   ```
+   
+2. Download the files from the following link: [Google Drive](https://drive.google.com/drive/folders/1gl5XT3mia9c0Z4LcUVBGKIbnDM2YwbJb?usp=sharing)
 
+3. Create a folder named `Files` in the same path where `client` and `server` exist, and copy the `.pkl` files from the downloaded folder into it.
+
+4. Update your `Login.css` file as needed. Use the reference image below for guidance:
+
+![Login Changes](assets/login-changes.png)
+
+5. Update your `SignupStep1.css` file as needed. Use the reference image below for guidance:
+
+![Signup Changes](assets/signup-changes.png)
+
+6. Download the video from [this link](https://drive.google.com/drive/folders/1eDc7IMysbFYVFVmp15YAYDGAwcSV5lO4?usp=sharing) and paste it into the `client/src/assets/videos` folder.
+
+7. Start the client by running the following command:
+
+```bash
+npm start
+```
+
+8. Start the server by running the following command:
+
+```bash
+nodemon index.js
+```
+
+9. Start the recommendation engine by running the following command:
+
+```bash
+streamlit run MovieMinds.py
+```
 
 ## Use Case:
 
