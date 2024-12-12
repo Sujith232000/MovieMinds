@@ -120,6 +120,7 @@ nodemon index.js
 ```bash
 streamlit run MovieMinds.py
 ```
+---
 
 ## Use Case:
 
@@ -182,7 +183,9 @@ streamlit run MovieMinds.py
 9. **Trending Movies**  
    Quickly identify trending movies to stay up-to-date with popular choices.
 
-10. **Interactive UI**  
+   ---
+
+11. **Interactive UI**  
     Enjoy a user-friendly interface with smooth navigation and visually appealing design, ensuring an enjoyable experience.
 
 
